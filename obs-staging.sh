@@ -40,7 +40,7 @@ rm staging/*
 
 # Create pristine source tarball.
 VERSION=`cat VERSION`
-BASE_NAME=apcups-$VERSION
+BASE_NAME=plasma-apcups-$VERSION
 OPENSUSE113_SPEC=$BASE_NAME-openSUSE_11.3.spec
 echo Creating $BASE_NAME.tar.gz.
 tar cvfz staging/$BASE_NAME.tar.gz \
