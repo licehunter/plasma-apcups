@@ -124,7 +124,13 @@ void ApcUpsPlasmoid::dataUpdated(const QString &sourceName, const Plasma::DataEn
         getDouble(data.value("TIMELEFT").toString().toAscii(), &timeLeft);
         maxTimeLeft = qMax(timeLeft, maxTimeLeft);
         
-        UpsState loadState, battState;
+        // Initialise state variables before use.
+        // TODO - A better option would be to add a third state,
+        // UnknownState to cater for the case where we cannot
+        // determine the UPS state e.g., due to comms errors, etc.
+        UpsState loadState = NormalState;
+        UpsSttate battState = NormalState;
+        
         // Work out the UPS state as regards battery charge
         if (status == "ONLINE") {
             battState = NormalState;
