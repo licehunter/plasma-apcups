@@ -21,7 +21,7 @@
 #include "apcupsplasmoid.h"
 
 ApcUpsPlasmoid::ApcUpsPlasmoid(QObject *parent, const QVariantList &args)
-    : Plasma::PopupApplet(parent, args)
+: Plasma::PopupApplet(parent, args)
 {
     setBackgroundHints(DefaultBackground);
     resize(160, 160);
@@ -51,13 +51,13 @@ void ApcUpsPlasmoid::init()
         
         setGraphicsWidget(container);
         setPopupIcon("apcups");
-
+        
         connect(this, SIGNAL(configurationChanged(QString)),
                 this, SLOT(readConfiguration(QString)));
                 connect(dataEngine("apcups"), SIGNAL(sourceAdded(QString)),
-                this, SLOT(sourceAdded(QString)));
-
-        dataEngine("apcups")->connectSource(hostname, this, 5000);
+                        this, SLOT(sourceAdded(QString)));
+                        
+                        dataEngine("apcups")->connectSource(hostname, this, 5000);
     }
 }
 
@@ -91,7 +91,7 @@ void ApcUpsPlasmoid::readConfiguration(const QString &h)
         hostname = h;
         connect(dataEngine("apcups"), SIGNAL(sourceAdded(QString)),
                 this, SLOT(sourceAdded(QString)));
-        dataEngine("apcups")->connectSource(hostname, this, 5000);
+                dataEngine("apcups")->connectSource(hostname, this, 5000);
     }
 }
 
@@ -115,8 +115,7 @@ void ApcUpsPlasmoid::dataUpdated(const QString &sourceName, const Plasma::DataEn
     if (data.keys().count() == 0)
         return;
     
-    QString error = data.value("Error").toString();
-    if (error.isEmpty()) { // If no error
+    if (!data.contains("Error")) { // If no error
         // get the values we are interested on
         status = data.value("STATUS").toString();
         getDouble(data.value("LOADPCT").toString().toAscii(), &loadPct);
@@ -171,7 +170,7 @@ void ApcUpsPlasmoid::dataUpdated(const QString &sourceName, const Plasma::DataEn
         // FIXME - The target widget would need resizing
         // as often the errors are fairly long.
         status = "ERROR: ";
-        status.append(error);
+        status.append(data.value("Error").toString());
         
         // Set the popup icon to the "no-state" version
         setPopupIcon("apcups");
@@ -185,7 +184,7 @@ void ApcUpsPlasmoid::paintInterface(QPainter *painter, const QStyleOptionGraphic
     Q_UNUSED(painter)
     Q_UNUSED(option)
     Q_UNUSED(contentsRect)
-
+    
     container->setHostname(hostname);
     container->setStatus(popupIcon());
     container->setState(status);

@@ -86,6 +86,7 @@ void ApcUpsEngine::statusReceived()
         if (j.value() != host)
             continue;
         name = j.key();
+        removeAllData(name);    // Do not keep stale data
         if (hosts.value(name)->hasError()) {
             // If there was an error, we set a key called "Error"
             // with the error message as its value

@@ -21,9 +21,10 @@
 #include "apcupsc.h"
 
 ApcUpsMon::ApcUpsMon(QString host, quint16 port, int updint, QObject *parent)
-    : QObject(parent)
+: QObject(parent)
 {
     bytesLeft = 0;
+    lastResponseTimestamp = 0;
     connect(&socket, SIGNAL(readyRead()), this, SLOT(socketRead()));
     connect(&socket, SIGNAL(connected()), this, SLOT(timeout()));
     connect(&socket, SIGNAL(connected()), &timer, SLOT(start()));
@@ -31,17 +32,16 @@ ApcUpsMon::ApcUpsMon(QString host, quint16 port, int updint, QObject *parent)
     connect(&socket, SIGNAL(disconnected()), &timer, SLOT(stop()));
     connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)),
             this, SLOT(socketError(QAbstractSocket::SocketError)));
+            connect(&timer, SIGNAL(timeout()), this, SLOT(timeout()));
             
-    connect(&timer, SIGNAL(timeout()), this, SLOT(timeout()));
-    
-    connectToHost(host, port);
-    setInterval(updint);
-    
-    // Launch D-BUS
-    new ApcUpsMonAdaptor(this);
-    QDBusConnection dbus = QDBusConnection::sessionBus();
-    dbus.registerObject("/", this);
-    dbus.registerService("eu.navlost.apcupsmon");
+            connectToHost(host, port);
+            setInterval(updint);
+            
+            // Launch D-BUS
+            new ApcUpsMonAdaptor(this);
+            QDBusConnection dbus = QDBusConnection::sessionBus();
+            dbus.registerObject("/", this);
+            dbus.registerService("eu.navlost.apcupsmon");
 }
 
 bool ApcUpsMon::hasError() const
@@ -54,23 +54,30 @@ QString ApcUpsMon::errorString() const
     return m_errorString;
 }
 
-void ApcUpsMon::connectToHost(QString host, unsigned int port)
+void ApcUpsMon::connectToHost(const QString &h, unsigned int p)
 {
-    if (port == 0)
-        port = 3551;
+    if (p == 0)
+        p = 3551;
     socket.disconnectFromHost();
+    host = h;
+    port = p;
+    socket.connectToHost(host, port);
+}
+
+void ApcUpsMon::connectToHost()
+{
     socket.connectToHost(host, port);
 }
 
 void ApcUpsMon::stopUpdates()
 {
     socket.disconnectFromHost();
-    timer.stop();
 }
 
 void ApcUpsMon::setInterval(int updint)
 {
     timer.setInterval(updint*1000);
+    expiryLimit = updint * 10;
 }
 
 void ApcUpsMon::socketRead()
@@ -106,7 +113,7 @@ void ApcUpsMon::socketRead()
     while (socket.bytesAvailable()) {
         // Get this line's length
         if (socket.read(chunkSize, 2) == 2) {
-//             size = qFromBigEndian((qint16)(*chunkSize));
+            //             size = qFromBigEndian((qint16)(*chunkSize));
             // FIXME - This will bomb on big-endian machines,
             // I need to get qFromBigEndian() working!!!
             *(&size) = chunkSize[1];
@@ -118,7 +125,7 @@ void ApcUpsMon::socketRead()
                     // 'line' variable, however the current apcupsd
                     // protocol does not send responses anywhere near
                     // 1 kB so at the moment that's an over optimisation
-//                     qDebug() << "Bad news, hit a huge line, which I'll ignore";
+                    //                     qDebug() << "Bad news, hit a huge line, which I'll ignore";
                     QByteArray sink = socket.read(size);
                     return;
                 }
@@ -138,9 +145,7 @@ void ApcUpsMon::socketRead()
                 processResponse();
             }
         } else {
-            // FIXME - should set m_errorString here.
-            // TODO - Fix it in next version
-//             qDebug() << "Could not read chunk size";
+            m_errorString = "Unable to read from socket";
         }
     }
 }
@@ -150,11 +155,25 @@ void ApcUpsMon::socketRead()
 void ApcUpsMon::socketError(QAbstractSocket::SocketError)
 {
     m_errorString = socket.errorString();
+    if (socket.state() != QAbstractSocket::ConnectedState) {
+        // Attempt to reconnect in two timer intervals or,
+        // failing that, ten seconds
+        QTimer::singleShot((timer.interval() ? timer.interval() : 10000),
+                           this, SLOT(connectToHost()));
+    }
+    
     emit haveError(m_errorString);
 }
 
 void ApcUpsMon::timeout()
 {
+    if (lastResponseTimestamp != 0 && (time(NULL) - lastResponseTimestamp) > expiryLimit) {
+        // If we haven't received a response in a while, close the socket.
+        // If there is a problem, this should generate diagnostics when
+        // attempting to reconnect.
+        lastResponseTimestamp = 0; // Otherwise we go in an infinite loop
+        socket.abort();
+    }
     requestStatus();
 }
 
@@ -165,8 +184,8 @@ void ApcUpsMon::requestStatus()
         socket.putChar('\x06');
         socket.write("status");
     } else {
-        // FIXME
-        // We're not connected, maybe we should try and reconnect?
+        // We're not connected, try and reconnect?
+        connectToHost();
     }
 }
 
@@ -177,8 +196,8 @@ void ApcUpsMon::requestEvents()
         socket.putChar('\x06');
         socket.write("events");
     } else {
-        // FIXME
-        // We're not connected, maybe we should try and reconnect?
+        // We're not connected, try and reconnect?
+        connectToHost();
     }
 }
 
@@ -187,7 +206,7 @@ QStringList ApcUpsMon::getUpsKeys() const
     return upsData.keys();
 }
 
-QString ApcUpsMon::getUpsData(QString key) const
+QString ApcUpsMon::getUpsData(const QString &key) const
 {
     return upsData.value(key, QString(""));
 }
@@ -207,7 +226,8 @@ void ApcUpsMon::processResponse()
     // it to be a status response. If not, it must
     // be an events response. Crude but works.
     QTextStream in(response);
-
+    
+    lastResponseTimestamp = time(NULL); // Update response timestamp
     m_errorString.clear();  // No errors
     upsData.clear();        // Clear status data
     QRegExp rx("^APC *:.*\nEND APC *:[^\n]+\n$");
