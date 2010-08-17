@@ -1,0 +1,26 @@
+    ApcUps - Plasma widget and data engine to monitor the status of
+             APC-brand Uninterruptible Power Supplies.
+
+Overview
+
+    A KDE Plasma component that monitors uninterruptible power
+    supplies controlled by apcupsd <http://www.apcupsd.com/>.
+    It can connect to any UPS (or more precisely: any apcupsd
+    daemon) which is reachable over the network.
+    
+Installation
+
+    See the INSTALL file for details on how to build and install the software.
+    Alternatively, packages are available for certain distros. Check the web
+    site for details.
+    
+Authors and license
+
+    Copyright (C) 2010 by Diego Berge <devel@navlost.eu>
+
+    ApcUps is free software distributed under the GNU General Public
+    License version 3. See the LICENSE file for terms.
+    
+On the web
+
+    Project home: http://navlost.eu/devel/apcups

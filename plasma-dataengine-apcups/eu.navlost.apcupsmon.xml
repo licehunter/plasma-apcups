@@ -1,0 +1,38 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="eu.navlost.apcupsmon">
+    <signal name="statusReceived">
+    </signal>
+    <signal name="eventsReceived">
+    </signal>
+    <signal name="haveError">
+      <arg type="s" direction="out"/>
+    </signal>
+    <method name="connectToHost">
+      <arg name="host" type="s" direction="in"/>
+      <arg name="port" type="u" direction="in"/>
+    </method>
+    <method name="connectToHost">
+      <arg name="host" type="s" direction="in"/>
+    </method>
+    <method name="setInterval">
+      <arg name="updateInterval" type="i" direction="in"/>
+    </method>
+    <method name="requestStatus">
+    </method>
+    <method name="requestEvents">
+    </method>
+    <method name="errorString">
+      <arg type="s" direction="out"/>
+    </method>
+    <method name="stopUpdates">
+    </method>
+    <method name="getUpsKeys">
+      <arg type="as" direction="out"/>
+    </method>
+    <method name="getUpsData">
+      <arg type="s" direction="out"/>
+      <arg name="key" type="s" direction="in"/>
+    </method>
+  </interface>
+</node>

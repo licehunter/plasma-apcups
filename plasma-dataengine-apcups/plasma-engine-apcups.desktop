@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=APC UPS Data Engine
+Comment=Monitor APC brand Uninterruptible Power Supplies
+Type=Service
+ 
+X-KDE-ServiceTypes=Plasma/DataEngine
+X-KDE-Library=plasma_engine_apcups
+X-Plasma-EngineName=plasma-dataengine-apcups
+X-KDE-PluginInfo-Author=Diego Berge
+X-KDE-PluginInfo-Email=dberge@navlost.eu
+X-KDE-PluginInfo-Name=apcups
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=http://navlost.eu/devel/apcups
+X-KDE-PluginInfo-Category=System
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=LGPL
+X-KDE-PluginInfo-EnabledByDefault=true

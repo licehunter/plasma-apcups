@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=APC UPS Monitor
+Comment=Monitors the status of APC-brand Uninterruptible Power Supplies
+Type=Service
+ServiceTypes=Plasma/Applet
+Icon=apcups
+ 
+X-KDE-Library=plasma-applet-apcups
+X-KDE-PluginInfo-Author=Diego Berge
+X-KDE-PluginInfo-Email=devel@navlost.eu
+X-KDE-PluginInfo-Name=plasmoid-apcups
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-License=GPLv3
+X-KDE-PluginInfo-Website=http://navlost.eu/devel/apcups
+X-KDE-PluginInfo-EnabledByDefault=true
+# Change below to true to allow docking in systray
+X-Plasma-NotificationArea=false
+X-KDE-PluginInfo-Depends=plasma-dataengine-apcups
