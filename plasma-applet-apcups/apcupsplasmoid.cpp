@@ -129,7 +129,7 @@ void ApcUpsPlasmoid::dataUpdated(const QString &sourceName, const Plasma::DataEn
         // UnknownState to cater for the case where we cannot
         // determine the UPS state e.g., due to comms errors, etc.
         UpsState loadState = NormalState;
-        UpsSttate battState = NormalState;
+        UpsState battState = NormalState;
         
         // Work out the UPS state as regards battery charge
         if (status == "ONLINE") {
