@@ -17,6 +17,7 @@
 
 #include <QGraphicsScene>
 #include <QPainter>
+#include <Plasma/ToolTipManager>
 #include <KConfigGroup>
 #include "apcupsplasmoid.h"
 
@@ -51,13 +52,17 @@ void ApcUpsPlasmoid::init()
         
         setGraphicsWidget(container);
         setPopupIcon("apcups");
+        tooltip.setMainText(i18n("APC UPS Monitor"));
+        tooltip.setSubText(hostname);
+        tooltip.setImage(KIcon("apcups").pixmap(IconSize(KIconLoader::Desktop)));
+        Plasma::ToolTipManager::self()->registerWidget(this);
         
         connect(this, SIGNAL(configurationChanged(QString)),
                 this, SLOT(readConfiguration(QString)));
-                connect(dataEngine("apcups"), SIGNAL(sourceAdded(QString)),
-                        this, SLOT(sourceAdded(QString)));
+        connect(dataEngine("apcups"), SIGNAL(sourceAdded(QString)),
+                this, SLOT(sourceAdded(QString)));
                         
-                        dataEngine("apcups")->connectSource(hostname, this, 5000);
+        dataEngine("apcups")->connectSource(hostname, this, 5000);
     }
 }
 
@@ -103,7 +108,7 @@ void ApcUpsPlasmoid::sourceAdded(const QString &name)
         // monitoring.
         dataEngine("apcups")->connectSource(name, this, 5000);
         disconnect(dataEngine("apcups"), SIGNAL(sourceAdded(QString)),
-                   this, SLOT(sourceAdded(QString)));
+                this, SLOT(sourceAdded(QString)));
     }
 }
 
@@ -191,6 +196,9 @@ void ApcUpsPlasmoid::paintInterface(QPainter *painter, const QStyleOptionGraphic
     container->setLoad(loadPct);
     container->setCharge(battCharge);
     container->setTimeLeft(timeLeft, maxTimeLeft);
+
+    tooltip.setSubText(QString("%1 (%2)").arg(hostname).arg(status));
+    Plasma::ToolTipManager::self()->setContent(this, tooltip);    
 }
 
 // Utility function, extracts a double out of a string, which

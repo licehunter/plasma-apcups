@@ -20,6 +20,7 @@
 
 #include <Plasma/PopupApplet>
 #include <Plasma/DataEngine>
+#include <Plasma/ToolTipContent>
 #include <KDE/KConfigDialog>
 #include "apcupsplasmoidwidget.h"
 #include "ui_ApcUpsPlasmoidConfiguration.h"
@@ -62,6 +63,8 @@ class ApcUpsPlasmoid : public Plasma::PopupApplet
         
         // Main widget
         ApcUpsPlasmoidWidget *container;
+        // Tooltip for plasmoid
+        Plasma::ToolTipContent tooltip;
         // Configuration form
         Ui::ConfigForm generalConfig;
 
