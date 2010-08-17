@@ -9,7 +9,6 @@ Source:                 %{name}-%{version}.tar.gz
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
 BuildRequires:          cmake >= 2.6, libqt4-devel >= 4.5, libkde4-devel >= 4.3, update-desktop-files
 Requires:               libqt4 >= 4.5.1, kdebase4-runtime >= 4.3.2
-Recommends:             plasmoid-apcups
 
 %description
 A KDE Plasma component that monitors uninterruptible power
