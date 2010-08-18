@@ -19,10 +19,13 @@ kde4_add_plugin(plasma-applet-apcups ${apcups_SRCS})
 target_link_libraries(plasma-applet-apcups 
                       ${KDE4_PLASMA_LIBS} ${KDE4_KDEUI_LIBS})
  
+set (SS_APPLET_DESKTOP_FILE plasma-applet-apcups.desktop)
+configure_file (${SS_APPLET_DESKTOP_FILE}.in ${CMAKE_CURRENT_BINARY_DIR}/${SS_APPLET_DESKTOP_FILE})
+
 install(TARGETS plasma-applet-apcups
         DESTINATION ${PLUGIN_INSTALL_DIR})
  
-install(FILES plasma-applet-apcups.desktop
+install(FILES ${SS_APPLET_DESKTOP_FILE}
         DESTINATION ${SERVICES_INSTALL_DIR})
 
 # Install icons

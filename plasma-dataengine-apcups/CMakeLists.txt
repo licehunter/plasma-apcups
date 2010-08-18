@@ -25,8 +25,11 @@ target_link_libraries(plasma_engine_apcups
                       ${KDE4_KDECORE_LIBS}
                       ${KDE4_PLASMA_LIBS})
  
+set (SS_ENGINE_DESKTOP_FILE plasma-engine-apcups.desktop)
+configure_file (${SS_ENGINE_DESKTOP_FILE}.in ${CMAKE_CURRENT_BINARY_DIR}/${SS_ENGINE_DESKTOP_FILE})
+
 install(TARGETS plasma_engine_apcups
         DESTINATION ${PLUGIN_INSTALL_DIR})
  
-install(FILES plasma-engine-apcups.desktop
+install(FILES ${SS_ENGINE_DESKTOP_FILE}
         DESTINATION ${SERVICES_INSTALL_DIR})
