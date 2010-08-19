@@ -54,17 +54,33 @@ bool ApcUpsEngine::updateSourceEvent(const QString &name)
     return false;
 }
 
-// FIXME - We should accept a port number argument
 bool ApcUpsEngine::addHost(const QString &name)
 {
+    QString hostname;
+    quint16 port;
+    
     if (hosts.contains(name)) {
         // We're already tracking this source
         return false;
     }
+    
+    // Check to see if we have a source name
+    // of the form hostname:port, and assign
+    // hostname and port values accordingly.
+    if (name.contains(':')) {
+        hostname = name.section(':', 1, -2);
+        port = name.section(':', -1).toUInt();
+        if (port == 0)
+            port = 3551;
+    } else {
+        hostname = name;
+        port = 3551;
+    }
+    
     // Here we hard code the update rate to five seconds.
     // This should be responsive enough while avoiding
     // excessive network traffic
-    ApcUpsMon *host = new ApcUpsMon(name, 3551, 5);
+    ApcUpsMon *host = new ApcUpsMon(hostname, port, 5);
     connect(host, SIGNAL(statusReceived()), SLOT(statusReceived()));
     connect(host, SIGNAL(haveError(const QString&)), SLOT(statusReceived()));
     hosts.insert(name, host);

@@ -53,11 +53,14 @@ echo "Creating RPM spec."
 sed <obs/apcups_basic.spec -e s/@VERSION@/$VERSION/g >staging/$BASE_NAME.spec
 check_errs $? "Can't generate spec file."
 
-# # Create Debian files for Kubuntu.
+# # Create Debian files.
 # echo "Creating Debian changelog."
-# sed <obs/debian.changelog -e s/@DEB_VERSION@/$VERSION-ubuntu1/g -e s/@DISTRO@/ubuntu/g >staging/debian.changelog
+# sed <obs/debian.changelog -e s/@DEB_VERSION@/$VERSION/g -e s/@DISTRO@/debian/g >staging/debian.changelog
 # echo "Creating Debian dsc."
-# sed <obs/socketsentry.dsc -e s/@DEB_VERSION@/$VERSION-ubuntu1/g >staging/socketsentry.dsc
+# sed <obs/plasma-apcups.dsc -e s/@DEB_VERSION@/$VERSION/g >staging/plasma-apcups.dsc
 # echo "Copying other Debian files."
-# cp obs/debian.control obs/debian.rules obs/debian.postinst obs/debian.postrm staging
+# cp obs/debian.control obs/debian.rules staging
 
+# Sign source tarball
+echo "Signing source tarball"
+gpg2 -bau "74D4837D4F3B6D781EF8C6E8E186408FBAF95EAF" --sign -o staging/$BASE_NAME.tar.gz.sig staging/$BASE_NAME.tar.gz

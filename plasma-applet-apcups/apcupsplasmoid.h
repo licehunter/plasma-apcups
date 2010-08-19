@@ -40,7 +40,7 @@ class ApcUpsPlasmoid : public Plasma::PopupApplet
         
     signals:
         
-        void configurationChanged(const QString &hostname);
+        void configurationChanged(const QString &hostname, quint16 port);
         
     protected slots:
         
@@ -54,7 +54,7 @@ class ApcUpsPlasmoid : public Plasma::PopupApplet
         // Called when the configuration dialogue is Applied or Ok'ed
         void configurationAccepted();
         // Called by configurationAccepted(), requests a new data source
-        void readConfiguration(const QString &hostname);
+        void readConfiguration(const QString &hostname, quint16 port);
         
     private:
         
@@ -68,7 +68,9 @@ class ApcUpsPlasmoid : public Plasma::PopupApplet
         // Configuration form
         Ui::ConfigForm generalConfig;
 
+        QString sourceName; // Name of the dataengine source
         QString hostname;   // Host name of the apcupsd daemon
+        quint16 port;       // Port number of the apcupsd daemon
         UpsState state;     // Normal, warning, or critical
         QString status;     // STATUS value from data engine
         double loadPct;
@@ -77,6 +79,9 @@ class ApcUpsPlasmoid : public Plasma::PopupApplet
         // timeLeftBar meter
         double timeLeft, maxTimeLeft;
         
+        // Utility function that creates a data engine source name
+        // based on the given hostname and port values
+        QString getSourceName(const QString &h, quint16 p) const;
         // Utility function to extract a double value from a string
         bool getDouble(const char *key, double *dest);
 };

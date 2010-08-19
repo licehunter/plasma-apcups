@@ -42,6 +42,29 @@
      <item>
       <widget class="QLineEdit" name="hostname"/>
      </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Port:</string>
+       </property>
+       <property name="buddy">
+        <cstring>port</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="port">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>65535</number>
+       </property>
+       <property name="value">
+        <number>3551</number>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -59,6 +82,10 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>hostname</tabstop>
+  <tabstop>port</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

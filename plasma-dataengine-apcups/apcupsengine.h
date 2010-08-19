@@ -39,6 +39,11 @@ class ApcUpsEngine : public Plasma::DataEngine
  
     protected:
         // this virtual function is called when a new source is requested
+        // The source name should be either a hostname or a string of
+        // the form hostname:port, if wishing to connect to a port other
+        // than 3551. If for whatever reason the hostname includes a colon,
+        // then the source name has to be of the form hostname:3551 (or
+        // whichever port number is requested)
         bool sourceRequestEvent(const QString& name);
         
         void removeSource(const QString& name);

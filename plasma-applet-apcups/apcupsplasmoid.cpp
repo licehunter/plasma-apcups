@@ -49,11 +49,13 @@ void ApcUpsPlasmoid::init()
     } else {
         KConfigGroup cfg = config();
         hostname = cfg.readEntry("hostname", "localhost");
+        port = cfg.readEntry("port", 3551);
+        sourceName = getSourceName(hostname, port);
         
         setGraphicsWidget(container);
         setPopupIcon("apcups");
         tooltip.setMainText(i18n("APC UPS Monitor"));
-        tooltip.setSubText(hostname);
+        tooltip.setSubText(sourceName);
         tooltip.setImage(KIcon("apcups").pixmap(IconSize(KIconLoader::Desktop)));
         Plasma::ToolTipManager::self()->registerWidget(this);
         
@@ -62,7 +64,7 @@ void ApcUpsPlasmoid::init()
         connect(dataEngine("apcups"), SIGNAL(sourceAdded(QString)),
                 this, SLOT(sourceAdded(QString)));
                         
-        dataEngine("apcups")->connectSource(hostname, this, 5000);
+        dataEngine("apcups")->connectSource(sourceName, this, 5000);
     }
 }
 
@@ -71,10 +73,12 @@ void ApcUpsPlasmoid::createConfigurationInterface(KConfigDialog* parent)
     
     KConfigGroup cfg = config();
     cfg.readEntry("hostname", hostname);
+    cfg.readEntry("port", (unsigned int)port);
     
     QWidget *configUi = new QWidget();
     generalConfig.setupUi(configUi);
     generalConfig.hostname->setText(hostname);
+    generalConfig.port->setValue(port);
     parent->addPage(configUi, i18n("Settings"), "apcups");
     
     connect(parent, SIGNAL(applyClicked()), this, SLOT(configurationAccepted()));
@@ -84,25 +88,29 @@ void ApcUpsPlasmoid::createConfigurationInterface(KConfigDialog* parent)
 void ApcUpsPlasmoid::configurationAccepted()
 {
     QString h = generalConfig.hostname->text();
+    quint16 p = generalConfig.port->value();
     KConfigGroup cfg = config();
     cfg.writeEntry("hostname", h);
-    emit configurationChanged(h);
+    cfg.writeEntry("port", (unsigned int)p);
+    emit configurationChanged(h, p);
 }
 
-void ApcUpsPlasmoid::readConfiguration(const QString &h)
+void ApcUpsPlasmoid::readConfiguration(const QString &h, quint16 p)
 {
-    if (h != hostname) {
-        dataEngine("apcups")->disconnectSource(hostname, this);
+    if (h != hostname || p != port) {
+        dataEngine("apcups")->disconnectSource(sourceName, this);
         hostname = h;
+        port = p;
+        sourceName = getSourceName(hostname, port);
         connect(dataEngine("apcups"), SIGNAL(sourceAdded(QString)),
                 this, SLOT(sourceAdded(QString)));
-                dataEngine("apcups")->connectSource(hostname, this, 5000);
+                dataEngine("apcups")->connectSource(sourceName, this, 5000);
     }
 }
 
 void ApcUpsPlasmoid::sourceAdded(const QString &name)
 {
-    if (name == hostname) {
+    if (name == sourceName) {
         // A new source was added to the dataengine. Connect to it
         // if the source name is the same as the hostname we are
         // monitoring.
@@ -113,9 +121,9 @@ void ApcUpsPlasmoid::sourceAdded(const QString &name)
 }
 
 // Called whenever the dataengine gets new data.
-void ApcUpsPlasmoid::dataUpdated(const QString &sourceName, const Plasma::DataEngine::Data &data)
+void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::Data &data)
 {
-    if (sourceName != hostname)
+    if (name != sourceName)
         return;
     if (data.keys().count() == 0)
         return;
@@ -190,15 +198,20 @@ void ApcUpsPlasmoid::paintInterface(QPainter *painter, const QStyleOptionGraphic
     Q_UNUSED(option)
     Q_UNUSED(contentsRect)
     
-    container->setHostname(hostname);
+    container->setHostname(sourceName);
     container->setStatus(popupIcon());
     container->setState(status);
     container->setLoad(loadPct);
     container->setCharge(battCharge);
     container->setTimeLeft(timeLeft, maxTimeLeft);
 
-    tooltip.setSubText(QString("%1 (%2)").arg(hostname).arg(status));
+    tooltip.setSubText(QString("%1 (%2)").arg(sourceName).arg(status));
     Plasma::ToolTipManager::self()->setContent(this, tooltip);    
+}
+
+QString ApcUpsPlasmoid::getSourceName(const QString &h, quint16 p) const
+{
+    return (port == 3551 && h.indexOf(":") == -1 ? h : QString("%1:%2").arg(h).arg(p));
 }
 
 // Utility function, extracts a double out of a string, which
