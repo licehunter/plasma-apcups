@@ -59,8 +59,8 @@ void ApcUpsPlasmoid::init()
         tooltip.setImage(KIcon("apcups").pixmap(IconSize(KIconLoader::Desktop)));
         Plasma::ToolTipManager::self()->registerWidget(this);
         
-        connect(this, SIGNAL(configurationChanged(QString)),
-                this, SLOT(readConfiguration(QString)));
+        connect(this, SIGNAL(configurationChanged(QString, quint16)),
+                this, SLOT(readConfiguration(QString, quint16)));
         connect(dataEngine("apcups"), SIGNAL(sourceAdded(QString)),
                 this, SLOT(sourceAdded(QString)));
                         
