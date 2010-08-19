@@ -1,5 +1,10 @@
 ApcUps plasmoid changelog
 
+0.1.2 - Thu Aug 19 2010
+=======================
+* Added configuration option to specify a port other than 3551
+* Changed the green icons to a slightly darker hue
+
 0.1.1 - Tue Aug 17 2010
 =======================
 * Added tooltip
