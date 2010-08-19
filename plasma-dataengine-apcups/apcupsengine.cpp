@@ -68,7 +68,7 @@ bool ApcUpsEngine::addHost(const QString &name)
     // of the form hostname:port, and assign
     // hostname and port values accordingly.
     if (name.contains(':')) {
-        hostname = name.section(':', 1, -2);
+        hostname = name.left(name.lastIndexOf(':'));
         port = name.section(':', -1).toUInt();
         if (port == 0)
             port = 3551;
