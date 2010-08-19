@@ -1,0 +1,5 @@
+plasma-apcups (@DEB_VERSION@) @DISTRO@; urgency=low
+
+  * Initial release.
+
+ -- Diego Berge <devel@navlost.eu> Thu, 19 Aug 2010 03:08:22 +0000

@@ -36,7 +36,7 @@ check_errs()
 }
 
 # Clear output directory.
-rm staging/*
+[ -d staging ] && rm staging/*
 
 # Create pristine source tarball.
 VERSION=`cat VERSION`
@@ -53,13 +53,16 @@ echo "Creating RPM spec."
 sed <obs/apcups_basic.spec -e s/@VERSION@/$VERSION/g >staging/$BASE_NAME.spec
 check_errs $? "Can't generate spec file."
 
-# # Create Debian files.
-# echo "Creating Debian changelog."
-# sed <obs/debian.changelog -e s/@DEB_VERSION@/$VERSION/g -e s/@DISTRO@/debian/g >staging/debian.changelog
-# echo "Creating Debian dsc."
-# sed <obs/plasma-apcups.dsc -e s/@DEB_VERSION@/$VERSION/g >staging/plasma-apcups.dsc
-# echo "Copying other Debian files."
-# cp obs/debian.control obs/debian.rules staging
+# Create Ubuntu files. Current version of Debian (5.0) in OBS does not
+# have all required dependencies
+echo "Creating Debian changelog."
+sed <obs/debian.changelog -e s/@DEB_VERSION@/$VERSION/g -e s/@DISTRO@/debian/g >staging/debian.changelog
+echo "Creating Debian dsc."
+sed <obs/plasma-apcups.dsc -e s/@DEB_VERSION@/$VERSION/g >staging/plasma-apcups.dsc
+echo "Creating Ubuntu dsc."
+sed <obs/plasma-apcups.dsc -e s/@DEB_VERSION@/$VERSION/g >staging/plasma-apcups-xUbuntu_10.04.dsc
+echo "Copying other Debian / Ubuntu files."
+cp obs/debian.control* obs/debian.rules staging
 
 # Sign source tarball
 echo "Signing source tarball"
