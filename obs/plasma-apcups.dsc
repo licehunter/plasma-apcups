@@ -1,7 +1,7 @@
 Format: 1.0
 Source: plasma-apcups
 Version: @DEB_VERSION@
-Binary: socketsentry
+Binary: plasma-apcups
 Maintainer: Diego Berge <devel@navlost.eu>
 Homepage: http://navlost.eu/devel/apcups
 Architecture: any
