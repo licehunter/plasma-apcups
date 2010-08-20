@@ -13,6 +13,5 @@ X-KDE-PluginInfo-Version=@AU_PROJECT_VERSION@
 X-KDE-PluginInfo-License=GPLv3
 X-KDE-PluginInfo-Website=http://navlost.eu/devel/apcups
 X-KDE-PluginInfo-EnabledByDefault=true
-# Change below to true to allow docking in systray
-X-Plasma-NotificationArea=false
+X-Plasma-NotificationArea=true
 X-KDE-PluginInfo-Depends=plasma-dataengine-apcups
