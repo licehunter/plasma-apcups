@@ -1,6 +1,10 @@
 [Desktop Entry]
 Name=APC UPS Monitor
+Name[ca]=Monitor de SAI APC
+Name[fr]=Moniteur de systèmes ASI APC
 Comment=Monitors the status of APC-brand Uninterruptible Power Supplies
+Comment[ca]=Controla l'estat de sistemes d'alimentació ininterrompuda de la marca APC
+Comment[fr]=Contrôle l'êtat des systèmes ASI fabriqués par la compagnie APC.
 Type=Service
 ServiceTypes=Plasma/Applet
 Icon=apcups
@@ -13,5 +17,6 @@ X-KDE-PluginInfo-Version=@AU_PROJECT_VERSION@
 X-KDE-PluginInfo-License=GPLv3
 X-KDE-PluginInfo-Website=http://navlost.eu/devel/apcups
 X-KDE-PluginInfo-EnabledByDefault=true
-X-Plasma-NotificationArea=true
 X-KDE-PluginInfo-Depends=plasma-dataengine-apcups
+X-Plasma-NotificationArea=true
+X-PlasmoidCategory=System Information

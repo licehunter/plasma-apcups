@@ -7,3 +7,4 @@ add_definitions (-DPROJECT_VERSION="${AU_PROJECT_VERSION}")
 
 add_subdirectory (plasma-dataengine-apcups)
 add_subdirectory (plasma-applet-apcups)
+add_subdirectory (po)

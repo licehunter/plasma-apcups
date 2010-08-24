@@ -106,10 +106,10 @@ void ApcUpsEngine::statusReceived()
         if (hosts.value(name)->hasError()) {
             // If there was an error, we set a key called "Error"
             // with the error message as its value
-            setData(name, I18N_NOOP("Error"), hosts.value(name)->errorString());
+            setData(name, "Error", hosts.value(name)->errorString());
         } else {
             for (i = hosts.value(name)->getUpsData().constBegin(); i != hosts.value(name)->getUpsData().constEnd(); ++i)
-                setData(name, I18N_NOOP(i.key()), i.value());
+                setData(name, i.key(), i.value());
         }
     }
 }

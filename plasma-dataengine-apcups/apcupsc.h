@@ -25,10 +25,13 @@
 #include <QMap>
 #include <QStringList>
 
-// Class that talks to an apcupsd daemon.
-// It can poll it at set intervals or on demand and it can request
-// the UPS status or events.
-// It also implements a D-BUS interface.
+/**
+* Class that talks to an apcupsd daemon.
+* It can poll it at set intervals or on demand and it can request
+* the UPS status or events.
+* It also implements a D-BUS interface.
+**/
+
 class ApcUpsMon : public QObject
 {
     Q_OBJECT
