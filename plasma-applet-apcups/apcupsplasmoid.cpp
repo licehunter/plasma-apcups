@@ -50,6 +50,9 @@ void ApcUpsPlasmoid::init()
         KConfigGroup cfg = config();
         hostname = cfg.readEntry("hostname", "localhost");
         port = cfg.readEntry("port", 3551);
+        battChargeCritical = cfg.readEntry("battChargeCritical", 20);
+        loadPctWarning = cfg.readEntry("loadPctWarning", 50);
+        loadPctCritical = cfg.readEntry("loadPctCritical", 80);
         sourceName = getSourceName(hostname, port);
         
         setGraphicsWidget(container);
@@ -74,24 +77,50 @@ void ApcUpsPlasmoid::createConfigurationInterface(KConfigDialog* parent)
     KConfigGroup cfg = config();
     cfg.readEntry("hostname", hostname);
     cfg.readEntry("port", (unsigned int)port);
+    cfg.readEntry("battChargeCritical", battChargeCritical);
+    cfg.readEntry("loadPctWarning", loadPctWarning);
+    cfg.readEntry("loadPctCritical", loadPctCritical);
     
     QWidget *configUi = new QWidget();
     generalConfig.setupUi(configUi);
     generalConfig.hostname->setText(hostname);
     generalConfig.port->setValue(port);
+    generalConfig.battChargeCritical->setValue(battChargeCritical);
+    generalConfig.loadPctWarning->setValue(loadPctWarning);
+    generalConfig.loadPctCritical->setValue(loadPctCritical);
     parent->addPage(configUi, i18n("Settings"), "apcups");
     
+    connect(generalConfig.loadPctWarning, SIGNAL(valueChanged(int)),
+            this, SLOT(loadPctRangeCheck(int)));
+    connect(generalConfig.loadPctCritical, SIGNAL(valueChanged(int)),
+            this, SLOT(loadPctRangeCheck(int)));
     connect(parent, SIGNAL(applyClicked()), this, SLOT(configurationAccepted()));
     connect(parent, SIGNAL(okClicked()), this, SLOT(configurationAccepted()));
+}
+
+void ApcUpsPlasmoid::loadPctRangeCheck(int)
+{
+    if (sender() == generalConfig.loadPctWarning) {
+        generalConfig.loadPctCritical->setMinimum(qMin(100,generalConfig.loadPctWarning->value()+1));
+    } else if (sender() == generalConfig.loadPctCritical) {
+        generalConfig.loadPctWarning->setMaximum(qMax(0,generalConfig.loadPctCritical->value()-1));
+    }
 }
 
 void ApcUpsPlasmoid::configurationAccepted()
 {
     QString h = generalConfig.hostname->text();
     quint16 p = generalConfig.port->value();
+    battChargeCritical = generalConfig.battChargeCritical->value();
+    loadPctWarning = generalConfig.loadPctWarning->value();
+    loadPctCritical = generalConfig.loadPctCritical->value();
     KConfigGroup cfg = config();
     cfg.writeEntry("hostname", h);
     cfg.writeEntry("port", (unsigned int)p);
+    cfg.writeEntry("battChargeCritical", battChargeCritical);
+    cfg.writeEntry("loadPctWarning", loadPctWarning);
+    cfg.writeEntry("loadPctCritical", loadPctCritical);
+    
     emit configurationChanged(h, p);
 }
 
@@ -146,16 +175,16 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
         // Work out the UPS state as regards battery charge
         if (status == "ONLINE") {
             battState = NormalState;
-        } else if (status == "ONBATT") {
-            if (battCharge > 20)
+        } else {
+            if (battCharge > battChargeCritical)
                 battState = WarningState;
             else
                 battState = CriticalState;
         }
         // Work out the UPS state as regards connected load
-        if (loadPct < 50)
+        if (loadPct < loadPctWarning)
             loadState = NormalState;
-        else if (loadPct > 85)
+        else if (loadPct > loadPctCritical)
             loadState = CriticalState;
         else
             loadState = WarningState;

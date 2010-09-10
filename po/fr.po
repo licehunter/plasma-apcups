@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-24 13:52+0000\n"
-"PO-Revision-Date: 2010-08-24 15:24+0000\n"
+"POT-Creation-Date: 2010-09-10 20:53+0000\n"
+"PO-Revision-Date: 2010-09-10 20:59+0000\n"
 "Last-Translator: Diego Berge\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Le moteur de données ApcUps n'a pas pu être initialisé. Essayez de "
 "redémarrer le KDE."
 
-#: ../plasma-applet-apcups/apcupsplasmoid.cpp:57
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:60
 msgid "APC UPS Monitor"
 msgstr "Moniteur de systèmes ASI APC"
 
-#: ../plasma-applet-apcups/apcupsplasmoid.cpp:82
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:91
 msgid "Settings"
 msgstr "Configuration"
 
@@ -36,16 +36,62 @@ msgstr "Configuration"
 msgid "Form"
 msgstr "Formulaire"
 
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:35
-#. i18n: ectx: property (text), widget (QLabel, label)
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:20
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: ../po/rc.cpp:6
+msgid "Apcupsd server details"
+msgstr "Details du serveur Apcupsd"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:28
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ../po/rc.cpp:9
 msgid "Hostname:"
 msgstr "Serveur:"
 
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:48
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:41
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: ../po/rc.cpp:9
+#: ../po/rc.cpp:12
 msgid "Port:"
 msgstr "Port:"
 
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:75
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: ../po/rc.cpp:15
+msgid "Battery Charge"
+msgstr "Niveau de batterie"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:102
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ../po/rc.cpp:18
+msgid "Low Battery Critical Level:"
+msgstr "Niveau critiquement faible:"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:114
+#. i18n: ectx: property (suffix), widget (QSpinBox, battChargeCritical)
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:165
+#. i18n: ectx: property (suffix), widget (QSpinBox, loadPctWarning)
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:185
+#. i18n: ectx: property (suffix), widget (QSpinBox, loadPctCritical)
+#: ../po/rc.cpp:22 ../po/rc.cpp:32 ../po/rc.cpp:39
+#, no-c-format
+msgid "%"
+msgstr "%"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:133
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
+#: ../po/rc.cpp:25
+msgid "UPS Load"
+msgstr "Surcharge"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:155
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ../po/rc.cpp:28
+msgid "High Load Warning Level:"
+msgstr "Niveau d'avertissement:"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:175
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ../po/rc.cpp:35
+msgid "High Load Critical Level:"
+msgstr "Niveau critique:"
 

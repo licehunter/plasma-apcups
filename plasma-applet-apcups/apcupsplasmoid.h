@@ -51,6 +51,9 @@ class ApcUpsPlasmoid : public Plasma::PopupApplet
         void dataUpdated(const QString &sourceName, const Plasma::DataEngine::Data &data);
         
         void createConfigurationInterface(KConfigDialog* parent);
+        // Called when load values are changed in the configuration
+        // interface, in order to keep the spinboxes within valid ranges
+        void loadPctRangeCheck(int);
         // Called when the configuration dialogue is Applied or Ok'ed
         void configurationAccepted();
         // Called by configurationAccepted(), requests a new data source
@@ -74,7 +77,9 @@ class ApcUpsPlasmoid : public Plasma::PopupApplet
         UpsState state;     // Normal, warning, or critical
         QString status;     // STATUS value from data engine
         double loadPct;
+        double loadPctWarning, loadPctCritical;
         double battCharge;
+        double battChargeCritical;
         // maxTimeLeft is used to set the scale of the
         // timeLeftBar meter
         double timeLeft, maxTimeLeft;

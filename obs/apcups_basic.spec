@@ -29,6 +29,7 @@ cd builddir
 %suse_update_desktop_file -n $RPM_BUILD_ROOT/usr/share/kde4/services/plasma-engine-apcups.desktop
 %suse_update_desktop_file -n $RPM_BUILD_ROOT/usr/share/kde4/services/plasma-applet-apcups.desktop
 %kde_post_install
+install -d $RPM_BUILD_ROOT%{_datadir}/locale %{_datadir}/locale
 
 %clean  
 rm -rf $RPM_BUILD_ROOT  
@@ -51,5 +52,6 @@ rm -rf $RPM_BUILD_ROOT
 %_kde4_iconsdir/hicolor/48x48/apps/./apcups_warningstate.png
 %_kde4_iconsdir/hicolor/64x64/apps/./apcups_warningstate.png
 %_kde4_iconsdir/hicolor/32x32/apps/./apcups_criticalstate.png
+%_datadir/locale/*/*/*
 
 %changelog
