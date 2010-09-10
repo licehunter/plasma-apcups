@@ -1,5 +1,11 @@
 ApcUps plasmoid changelog
 
+0.1.3 - Fri Sep 10 2010
+=======================
+* Added configuration options to specify warning and
+  critical thresholds for battery charge and system load
+* Added i18n framework and a couple of translations
+
 0.1.2 - Thu Aug 19 2010
 =======================
 * Added configuration option to specify a port other than 3551
