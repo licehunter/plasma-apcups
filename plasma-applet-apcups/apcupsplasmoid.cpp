@@ -19,6 +19,7 @@
 #include <QPainter>
 #include <Plasma/ToolTipManager>
 #include <KConfigGroup>
+#include <KNotification>
 #include "apcupsplasmoid.h"
 
 ApcUpsPlasmoid::ApcUpsPlasmoid(QObject *parent, const QVariantList &args)
@@ -32,6 +33,7 @@ ApcUpsPlasmoid::ApcUpsPlasmoid(QObject *parent, const QVariantList &args)
     timeLeft = 0;
     maxTimeLeft = 0;
     status = QString("N/A");
+    upsEvents = QStringList();
 }
 
 ApcUpsPlasmoid::~ApcUpsPlasmoid()
@@ -66,7 +68,7 @@ void ApcUpsPlasmoid::init()
                 this, SLOT(readConfiguration(QString, quint16)));
         connect(dataEngine("apcups"), SIGNAL(sourceAdded(QString)),
                 this, SLOT(sourceAdded(QString)));
-                        
+                
         dataEngine("apcups")->connectSource(sourceName, this, 5000);
     }
 }
@@ -92,10 +94,10 @@ void ApcUpsPlasmoid::createConfigurationInterface(KConfigDialog* parent)
     
     connect(generalConfig.loadPctWarning, SIGNAL(valueChanged(int)),
             this, SLOT(loadPctRangeCheck(int)));
-    connect(generalConfig.loadPctCritical, SIGNAL(valueChanged(int)),
-            this, SLOT(loadPctRangeCheck(int)));
-    connect(parent, SIGNAL(applyClicked()), this, SLOT(configurationAccepted()));
-    connect(parent, SIGNAL(okClicked()), this, SLOT(configurationAccepted()));
+            connect(generalConfig.loadPctCritical, SIGNAL(valueChanged(int)),
+                    this, SLOT(loadPctRangeCheck(int)));
+                    connect(parent, SIGNAL(applyClicked()), this, SLOT(configurationAccepted()));
+                    connect(parent, SIGNAL(okClicked()), this, SLOT(configurationAccepted()));
 }
 
 void ApcUpsPlasmoid::loadPctRangeCheck(int)
@@ -145,7 +147,7 @@ void ApcUpsPlasmoid::sourceAdded(const QString &name)
         // monitoring.
         dataEngine("apcups")->connectSource(name, this, 5000);
         disconnect(dataEngine("apcups"), SIGNAL(sourceAdded(QString)),
-                this, SLOT(sourceAdded(QString)));
+                   this, SLOT(sourceAdded(QString)));
     }
 }
 
@@ -206,6 +208,46 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
             default:
                 setPopupIcon("apcups");
         }
+        
+        // Check for events
+        if (data.contains("events")) {
+            if (upsEvents.length() == 0) {
+                // When we first start our run, we just collect any
+                // events that come through the first time, and we'll
+                // assume they are in the past. We then deal we any new
+                // events that arrive subsequently.
+                upsEvents = data.value("events").toString().split("\n",  QString::SkipEmptyParts);
+            } else {
+                QString evt;
+                QStringList newEvents = data.value("events").toString().split("\n",  QString::SkipEmptyParts);
+                
+                // Go through the list we just received
+                int i = 0;
+                while (i < newEvents.length()) {
+                    // If this event has already been seen
+                    if (upsEvents.contains(newEvents.at(i))) {
+                        // Remove it from the new events list
+                        newEvents.removeAt(i);
+                    } else {
+                        QString evt = newEvents.at(i);
+                        // ...if not, append it to the seen events list
+                        upsEvents.append(evt);
+                        // ...and do a bit of reformatting
+                        newEvents.replace(i++, QString("<i>%1</i><br/>%2").arg(evt.left(28)).arg(evt.mid(28)));
+                    }
+                }
+                
+                if (newEvents.length()) {
+                  // In the end, issue a notification with any new, unseen events we have received.
+                  // FIXME - We should be using our own eventid ("upsEvent"), but I can't get it
+                  // to work for some unfathomable reason :(  In the meanwhile, a standard event
+                  // will have to do.
+                  KNotification::event(KNotification::Notification,
+                    QString(i18n("APC UPS Monitor - %1")).arg(sourceName),
+                    QString(i18n("%1").arg(newEvents.join("\n"))));
+                }
+            }
+        }
     } else {
         // There was an error, update the status
         // widget to show the error message.
@@ -233,7 +275,7 @@ void ApcUpsPlasmoid::paintInterface(QPainter *painter, const QStyleOptionGraphic
     container->setLoad(loadPct);
     container->setCharge(battCharge);
     container->setTimeLeft(timeLeft, maxTimeLeft);
-
+    
     tooltip.setSubText(QString("%1 (%2)").arg(sourceName).arg(status));
     Plasma::ToolTipManager::self()->setContent(this, tooltip);    
 }

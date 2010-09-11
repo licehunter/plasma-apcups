@@ -1,0 +1,9 @@
+[Global]
+IconName=apcups
+Name=plasma-applet-apcups
+Comment=APC UPS Monitor
+
+[Event/upsEvent]
+Name=UPS Event
+Comment=A new event has been reported by the UPS
+Action=Popup

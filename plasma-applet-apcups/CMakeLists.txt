@@ -27,6 +27,8 @@ install(TARGETS plasma-applet-apcups
  
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${SS_APPLET_DESKTOP_FILE}
         DESTINATION ${SERVICES_INSTALL_DIR})
+install(FILES plasma-applet-apcups.notifyrc 
+        DESTINATION ${DATA_INSTALL_DIR}/plasma-applet-apcups)
 
 # Install icons
 add_subdirectory (img)

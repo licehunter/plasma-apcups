@@ -83,6 +83,7 @@ class ApcUpsPlasmoid : public Plasma::PopupApplet
         // maxTimeLeft is used to set the scale of the
         // timeLeftBar meter
         double timeLeft, maxTimeLeft;
+        QStringList upsEvents; // List of events received
         
         // Utility function that creates a data engine source name
         // based on the given hostname and port values
