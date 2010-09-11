@@ -32,16 +32,16 @@ ApcUpsMon::ApcUpsMon(QString host, quint16 port, int updint, QObject *parent)
     connect(&socket, SIGNAL(disconnected()), &timer, SLOT(stop()));
     connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)),
             this, SLOT(socketError(QAbstractSocket::SocketError)));
-            connect(&timer, SIGNAL(timeout()), this, SLOT(timeout()));
-            
-            connectToHost(host, port);
-            setInterval(updint);
-            
-            // Launch D-BUS
-            new ApcUpsMonAdaptor(this);
-            QDBusConnection dbus = QDBusConnection::sessionBus();
-            dbus.registerObject("/", this);
-            dbus.registerService("eu.navlost.apcupsmon");
+    connect(&timer, SIGNAL(timeout()), this, SLOT(timeout()));
+    
+    connectToHost(host, port);
+    setInterval(updint);
+    
+    // Launch D-BUS
+    new ApcUpsMonAdaptor(this);
+    QDBusConnection dbus = QDBusConnection::sessionBus();
+    dbus.registerObject("/", this);
+    dbus.registerService("eu.navlost.apcupsmon");
 }
 
 bool ApcUpsMon::hasError() const
@@ -175,6 +175,11 @@ void ApcUpsMon::timeout()
         socket.abort();
     }
     requestStatus();
+    if (qrand() < (RAND_MAX / 3)) {
+        // Request events, on average, on one out of every three polls.
+        // This is done to save bandwidth.
+        requestEvents();
+    }
 }
 
 void ApcUpsMon::requestStatus()
@@ -229,7 +234,9 @@ void ApcUpsMon::processResponse()
     
     lastResponseTimestamp = time(NULL); // Update response timestamp
     m_errorString.clear();  // No errors
+    QString ev = upsData.value("events");
     upsData.clear();        // Clear status data
+    upsData.insert("events", ev);
     QRegExp rx("^APC *:.*\nEND APC *:[^\n]+\n$");
     if (rx.exactMatch(response)) {
         // If it has matched, it must be status data
@@ -247,6 +254,7 @@ void ApcUpsMon::processResponse()
         }
         emit statusReceived();
     } else {
+        upsData.insert("events", in.readAll());
         emit eventsReceived();
     }
     response.clear();

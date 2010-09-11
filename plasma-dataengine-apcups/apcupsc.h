@@ -54,7 +54,8 @@ class ApcUpsMon : public QObject
         // Request status info, can be called manually or
         // automatically by using setInterval()
         void requestStatus();
-        // Request events info. Manual calling only.
+        // Request events info. Manual calling, or
+        // by setInterval()
         void requestEvents();
         // Returns the error string, or QString() if no error
         QString errorString() const;
