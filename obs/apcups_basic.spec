@@ -40,6 +40,7 @@ rm -rf $RPM_BUILD_ROOT
 %_kde4_servicesdir/plasma-engine-apcups.desktop
 %_kde4_modulesdir/plasma-applet-apcups.so
 %_kde4_servicesdir/plasma-applet-apcups.desktop
+%_kde4_appsdir/plasma-applet-apcups/plasma-applet-apcups.notifyrc
 %_kde4_iconsdir/hicolor/64x64/apps/./apcups.png
 %_kde4_iconsdir/hicolor/48x48/apps/./apcups.png
 %_kde4_iconsdir/hicolor/32x32/apps/./apcups_warningstate.png
