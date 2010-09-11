@@ -237,8 +237,8 @@ void ApcUpsMon::processResponse()
     QString ev = upsData.value("events");
     upsData.clear();        // Clear status data
     upsData.insert("events", ev);
-    QRegExp rx("^APC *:.*\nEND APC *:[^\n]+\n$");
-    if (rx.exactMatch(response)) {
+    QRegExp srx("^APC *:.*\nEND APC *:[^\n]+\n$");
+    if (srx.exactMatch(response)) {
         // If it has matched, it must be status data
         while (!in.atEnd()) {
             // Split the data in key/value pairs,
@@ -254,7 +254,16 @@ void ApcUpsMon::processResponse()
         }
         emit statusReceived();
     } else {
-        upsData.insert("events", in.readAll());
+        QRegExp erx("^[A-Z][a-z]{2} [A-Z][a-z]{2} [0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [A-Z]+ [0-9]{4}  .+$");
+        QStringList value;
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            // Let's check that it looks like an event line
+            if (erx.exactMatch(line)) {
+                value.append(line);
+            }
+        }
+        upsData.insert("events", value.join("\n"));
         emit eventsReceived();
     }
     response.clear();
