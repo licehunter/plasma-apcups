@@ -8,7 +8,7 @@ Homepage: http://navlost.eu/devel/apcups
 
 Package: plasma-apcups
 Architecture: any
-Depends: kdebase-runtime (>= 4:4.3.2), kdebase-workspace-libs4+5 (>= 4:4.3.2), kdelibs5 (>= 4:4.3.2), libqt4-dbus (>= 4.5.1), libqt4-network (>= 4.5.1), libqt4-xml (>= 4.5.1), libstdc++6 (>= 4.1.1), libqtcore4 (>= 4.5.1), libqtgui4 (>= 4.5.1), kdebase-workspace-bin
+Depends: kdebase-runtime (>= 4:4.3.2), kdelibs5 (>= 4:4.3.2), libqt4-dbus (>= 4.5.1), libqt4-network (>= 4.5.1), libqt4-xml (>= 4.5.1), libstdc++6 (>= 4.1.1), libqtcore4 (>= 4.5.1), libqtgui4 (>= 4.5.1), kdebase-workspace
 Description: Uninterruptible Power Supply monitor for APC brand UPSes
  A KDE Plasma component that monitors uninterruptible power
  supplies controlled by apcupsd <http://www.apcupsd.com/>.
