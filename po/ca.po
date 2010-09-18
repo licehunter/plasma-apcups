@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-18 18:59+0000\n"
-"PO-Revision-Date: 2010-09-18 19:49+0000\n"
+"PO-Revision-Date: 2010-09-18 20:10+0000\n"
 "Last-Translator: Diego Berge\n"
 "Language-Team: Catalan <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,6 @@ msgid "Settings"
 msgstr "Arranjament"
 
 #: ../plasma-applet-apcups/apcupsplasmoid.cpp:247
-#, fuzzy
 msgid "APC UPS Monitor - %1"
 msgstr "Monitor de SAI per APC - %1"
 
@@ -57,7 +56,6 @@ msgid "Charge"
 msgstr "Càrrega"
 
 #: ../plasma-applet-apcups/apcupsplasmoidwidget.cpp:63
-#, fuzzy
 msgctxt "Default text of label showing the hostname. Not normally seen."
 msgid "Hostname"
 msgstr "Servidor:"
