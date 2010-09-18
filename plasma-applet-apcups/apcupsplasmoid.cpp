@@ -242,7 +242,8 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
                   // FIXME - We should be using our own eventid ("upsEvent"), but I can't get it
                   // to work for some unfathomable reason :(  In the meanwhile, a standard event
                   // will have to do.
-                  KNotification::event(KNotification::Notification,
+                  // NOTE - Default event changed to custom event, still need to see if it works.
+                  KNotification::event(QString::fromLatin1("upsEvent"),
                     QString(i18n("APC UPS Monitor - %1")).arg(sourceName),
                     QString(i18n("%1").arg(newEvents.join("\n"))));
                 }
