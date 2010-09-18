@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-10 20:53+0000\n"
-"PO-Revision-Date: 2010-09-10 20:59+0000\n"
+"POT-Creation-Date: 2010-09-18 18:59+0000\n"
+"PO-Revision-Date: 2010-09-18 19:15+0000\n"
 "Last-Translator: Diego Berge\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,19 +16,57 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../plasma-applet-apcups/apcupsplasmoid.cpp:48
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:50
 msgid "The apcups data engine could not be initialised. Try restarting KDE."
 msgstr ""
 "Le moteur de données ApcUps n'a pas pu être initialisé. Essayez de "
 "redémarrer le KDE."
 
-#: ../plasma-applet-apcups/apcupsplasmoid.cpp:60
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:62
 msgid "APC UPS Monitor"
 msgstr "Moniteur de systèmes ASI APC"
 
-#: ../plasma-applet-apcups/apcupsplasmoid.cpp:91
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:93
 msgid "Settings"
 msgstr "Configuration"
+
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:247
+#, fuzzy
+msgid "APC UPS Monitor - %1"
+msgstr "Moniteur de systèmes ASI APC - %1"
+
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:248
+msgid "%1"
+msgstr "%1"
+
+#: ../plasma-applet-apcups/apcupsplasmoidwidget.cpp:40
+msgctxt "Label showing how much time is left running on batteries."
+msgid "Left"
+msgstr "Temps restant"
+
+#: ../plasma-applet-apcups/apcupsplasmoidwidget.cpp:49
+msgctxt ""
+"Label showing UPS load, in percentage (i.e., how much stuff is connected to "
+"it)."
+msgid "Load"
+msgstr "Tension"
+
+#: ../plasma-applet-apcups/apcupsplasmoidwidget.cpp:55
+#, fuzzy
+msgctxt "Label showing how much charge the battery currently has."
+msgid "Charge"
+msgstr "Niveau de batterie"
+
+#: ../plasma-applet-apcups/apcupsplasmoidwidget.cpp:63
+#, fuzzy
+msgctxt "Default text of label showing the hostname. Not normally seen."
+msgid "Hostname"
+msgstr "Serveur:"
+
+#: ../plasma-applet-apcups/apcupsplasmoidwidget.cpp:64
+msgctxt "Default text of label showing the status. Not normally seen."
+msgid "STATUS"
+msgstr "STATUS"
 
 #. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, ConfigForm)

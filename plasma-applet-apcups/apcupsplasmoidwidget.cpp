@@ -37,7 +37,7 @@ ApcUpsPlasmoidWidget::ApcUpsPlasmoidWidget(QGraphicsItem *parent)
     timeLeftBar->setMeterType(Plasma::Meter::BarMeterHorizontal);
     timeLeftBar->setMaximum(100);
     timeLeftBar->setMinimum(0);
-    timeLeftBar->setLabel(0, "Left");
+    timeLeftBar->setLabel(0, i18nc("Label showing how much time is left running on batteries.", "Left"));
     timeLeftBar->setLabelAlignment(0, Qt::AlignLeft|Qt::AlignVCenter);
     horizontalLayout_2->addItem(stateLabel);
     horizontalLayout_2->addItem(timeLeftBar);
@@ -46,13 +46,13 @@ ApcUpsPlasmoidWidget::ApcUpsPlasmoidWidget(QGraphicsItem *parent)
     loadBar->setMeterType(Plasma::Meter::BarMeterHorizontal);
     loadBar->setMaximum(100);
     loadBar->setMinimum(0);
-    loadBar->setLabel(0, "Load");
+    loadBar->setLabel(0, i18nc("Label showing UPS load, in percentage (i.e., how much stuff is connected to it).", "Load"));
     loadBar->setLabelAlignment(0, Qt::AlignLeft|Qt::AlignVCenter);
     chargeBar = new Plasma::Meter();
     chargeBar->setMeterType(Plasma::Meter::BarMeterHorizontal);
     chargeBar->setMaximum(100);
     chargeBar->setMinimum(0);
-    chargeBar->setLabel(0, "Charge");
+    chargeBar->setLabel(0, i18nc("Label showing how much charge the battery currently has.", "Charge"));
     chargeBar->setLabelAlignment(0, Qt::AlignLeft|Qt::AlignVCenter);
     verticalLayout->addItem(loadBar);
     verticalLayout->addItem(chargeBar);
@@ -60,8 +60,8 @@ ApcUpsPlasmoidWidget::ApcUpsPlasmoidWidget(QGraphicsItem *parent)
     setMinimumSize(QSizeF(128, 100));
     setLayout(verticalLayout);
     show();
-    hostLabel->setText("Hostname");
-    stateLabel->setText("STATUS");
+    hostLabel->setText(i18nc("Default text of label showing the hostname. Not normally seen.", "Hostname"));
+    stateLabel->setText(i18nc("Default text of label showing the status. Not normally seen.", "STATUS"));
     timeLeftBar->setValue(100);
 }
 
