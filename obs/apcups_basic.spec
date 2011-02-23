@@ -36,6 +36,7 @@ rm -rf $RPM_BUILD_ROOT
    
 %files
 %defattr(-,root,root)
+%dir %_kde4_appsdir/plasma-applet-apcups
 %_kde4_modulesdir/plasma_engine_apcups.so
 %_kde4_servicesdir/plasma-engine-apcups.desktop
 %_kde4_modulesdir/plasma-applet-apcups.so
