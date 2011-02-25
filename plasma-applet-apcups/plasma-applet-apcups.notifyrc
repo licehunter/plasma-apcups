@@ -1,9 +1,24 @@
 [Global]
 IconName=apcups
-Name=plasma-applet-apcups
+Name=APC UPS Monitor
 Comment=APC UPS Monitor
 
 [Event/upsEvent]
 Name=UPS Event
 Comment=A new event has been reported by the UPS
+Action=Popup
+
+[Event/stateNormal]
+Name=UPS State Normal
+Comment=The UPS state has changed to Normal.
+Action=
+
+[Event/stateWarning]
+Name=UPS State Warning
+Comment=The UPS state has changed to Warning.
+Action=Popup
+
+[Event/stateCritical]
+Name=UPS State Critical
+Comment=The UPS state has changed to Critical.
 Action=Popup

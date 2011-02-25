@@ -29,10 +29,11 @@ ApcUpsPlasmoid::ApcUpsPlasmoid(QObject *parent, const QVariantList &args)
     resize(160, 160);
     hostname = QString();
     loadPct = 0;
-    battCharge = 0;
+    battCharge = 100;
     timeLeft = 0;
     maxTimeLeft = 0;
     status = QString("N/A");
+    state = NormalState;
     upsEvents = QStringList();
 }
 
@@ -173,9 +174,13 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
         // determine the UPS state e.g., due to comms errors, etc.
         UpsState loadState = NormalState;
         UpsState battState = NormalState;
+        UpsState prevState = state; // To notify of state change
         
         // Work out the UPS state as regards battery charge
-        if (status == "ONLINE") {
+        if (status == "ONLINE" || status == "") {
+            // NOTE - The test for an empty status string relates to
+            // widget initialisation, when a status has not yet
+            // been received.
             battState = NormalState;
         } else {
             if (battCharge > battChargeCritical)
@@ -194,19 +199,24 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
         // Take the worst of the two states
         state = qMax(battState, loadState);
         
-        // Change the popup icon according to UPS state
-        switch (state) {
-            case NormalState:
-                setPopupIcon("apcups_normalstate");
-                break;
-            case WarningState:
-                setPopupIcon("apcups_warningstate");
-                break;
-            case CriticalState:
-                setPopupIcon("apcups_criticalstate");
-                break;
-            default:
-                setPopupIcon("apcups");
+        if (state != prevState) {
+            // Change the popup icon according to UPS state
+            switch (state) {
+                case NormalState:
+                    setPopupIcon("apcups_normalstate");
+                    notify(QString("stateNormal"), QString(i18n("The UPS state has changed back to <b>Normal</b>")));
+                    break;
+                case WarningState:
+                    setPopupIcon("apcups_warningstate");
+                    notify(QString("stateWarning"), QString(i18n("The UPS state has changed to <b>Warning</b>")));
+                    break;
+                case CriticalState:
+                    setPopupIcon("apcups_criticalstate");
+                    notify(QString("stateCritical"), QString(i18n("The UPS state has changed to <b>Critical</b>")));
+                    break;
+                default:
+                    setPopupIcon("apcups");
+            }
         }
         
         // Check for events
@@ -238,14 +248,8 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
                 }
                 
                 if (newEvents.length()) {
-                  // In the end, issue a notification with any new, unseen events we have received.
-                  // FIXME - We should be using our own eventid ("upsEvent"), but I can't get it
-                  // to work for some unfathomable reason :(  In the meanwhile, a standard event
-                  // will have to do.
-                  // NOTE - Default event changed to custom event, still need to see if it works.
-                  KNotification::event(QString::fromLatin1("upsEvent"),
-                    QString(i18n("APC UPS Monitor - %1")).arg(sourceName),
-                    QString(i18n("%1").arg(newEvents.join("\n"))));
+                    // In the end, issue a notification with any new, unseen events we have received.
+                    notify(QString("upsEvent"), QString(i18n("APC UPS Monitor - %1")).arg(sourceName));
                 }
             }
         }
@@ -295,6 +299,17 @@ bool ApcUpsPlasmoid::getDouble(const char *str, double *dest)
         return true;
     }
     return false;
+}
+
+// Utility function to send notifications to desktop user.
+// eventId as defined in .notifyrc file; text, to taste.
+void ApcUpsPlasmoid::notify(QString eventId, QString text)
+{
+    KNotification *notification = new KNotification(eventId);
+    notification->setComponentData(KComponentData("plasma-applet-apcups"));
+    notification->setTitle(QString(i18n("APC UPS Monitor - %1")).arg(sourceName));
+    notification->setText(text);
+    notification->sendEvent();
 }
 
 K_EXPORT_PLASMA_APPLET(apcups, ApcUpsPlasmoid);

@@ -90,6 +90,8 @@ class ApcUpsPlasmoid : public Plasma::PopupApplet
         QString getSourceName(const QString &h, quint16 p) const;
         // Utility function to extract a double value from a string
         bool getDouble(const char *key, double *dest);
+        // Utility function to send notifications to desktop user.
+        void notify(QString eventId, QString text);
 };
 
 #endif /* APCUPSPLASMOID_H */
