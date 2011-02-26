@@ -249,7 +249,7 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
                 
                 if (newEvents.length()) {
                     // In the end, issue a notification with any new, unseen events we have received.
-                    notify(QString("upsEvent"), QString(i18n("APC UPS Monitor - %1")).arg(sourceName));
+                    notify(QString("upsEvent"), QString("%1").arg(newEvents.join("\n")));
                 }
             }
         }
