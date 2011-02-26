@@ -1,5 +1,11 @@
 ApcUps plasmoid changelog
 
+0.2.1 - Sat Feb 26 2011
+=======================
+* Fixed problem with acquiring initial state,
+  and with display of event notifications
+* Updated translations
+
 0.2.0 - Fri Feb 25 2011
 =======================
 * Added "What's this?" help to config dialogue
