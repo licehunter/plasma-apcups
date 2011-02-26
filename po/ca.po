@@ -1,13 +1,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Diego Berge, 2010.
+# Diego Berge, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-18 18:59+0000\n"
-"PO-Revision-Date: 2010-09-18 20:10+0000\n"
+"POT-Creation-Date: 2011-02-26 13:54+0000\n"
+"PO-Revision-Date: 2011-02-26 13:55+0000\n"
 "Last-Translator: Diego Berge\n"
 "Language-Team: Catalan <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,27 +16,36 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../plasma-applet-apcups/apcupsplasmoid.cpp:50
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:51
 msgid "The apcups data engine could not be initialised. Try restarting KDE."
 msgstr ""
 "El motor de dades per apcups no s'ha pogut inicialitzar. Proveu de tornar a "
 "engegar el KDE."
 
-#: ../plasma-applet-apcups/apcupsplasmoid.cpp:62
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:63
 msgid "APC UPS Monitor"
 msgstr "Monitor de SAI per APC"
 
-#: ../plasma-applet-apcups/apcupsplasmoid.cpp:93
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:94
 msgid "Settings"
 msgstr "Arranjament"
 
-#: ../plasma-applet-apcups/apcupsplasmoid.cpp:247
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:207
+msgid "The UPS state has changed back to <b>Normal</b>"
+msgstr "L'estat del SAI a passat al nivell <b>normal</b>"
+
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:211
+msgid "The UPS state has changed to <b>Warning</b>"
+msgstr "L'estat del SAI a passat al nivell d'<b>advertència</b>"
+
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:215
+msgid "The UPS state has changed to <b>Critical</b>"
+msgstr "L'estat del SAI a passat al nivell <b>crític</b>"
+
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:252
+#: ../plasma-applet-apcups/apcupsplasmoid.cpp:310
 msgid "APC UPS Monitor - %1"
 msgstr "Monitor de SAI per APC - %1"
-
-#: ../plasma-applet-apcups/apcupsplasmoid.cpp:248
-msgid "%1"
-msgstr "%1"
 
 #: ../plasma-applet-apcups/apcupsplasmoidwidget.cpp:40
 msgctxt "Label showing how much time is left running on batteries."
@@ -72,62 +81,352 @@ msgid "Form"
 msgstr "Formulari"
 
 #. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:20
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox)
 #: ../po/rc.cpp:6
+msgid ""
+"This section is for entering the details of the apcupsd server that controls "
+"your target UPS. You need to supply this information in order to be able to "
+"monitor the UPS status."
+msgstr ""
+"Aquesta secció és per introduir els detalls dels servidor <i>apcupsd</i> que "
+"controla el vostre SAI. Cal omplir aquesta informació per poder veure "
+"l'estat del SAI."
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: ../po/rc.cpp:9
 msgid "Apcupsd server details"
 msgstr "Dades del servidor Apcupsd"
 
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:28
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:31
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: ../po/rc.cpp:9
+#: ../po/rc.cpp:12
 msgid "Hostname:"
 msgstr "Servidor:"
 
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:41
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:47
+#. i18n: ectx: property (whatsThis), widget (QLineEdit, hostname)
+#: ../po/rc.cpp:15
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Enter here the name or IP "
+"address of the computer running the apcupsd server controlling the UPS you "
+"wish to monitor.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">See <a href=\"http://www."
+"apcupsd.com/\"><span style=\" text-decoration: underline; color:#0057ae;"
+"\">http://www.apcupsd.com/</span></a> for more info.</p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Introduïu ací el nom o "
+"adreça IP de l'ordinador on hi ha el servidor apcupsd que es comunica amb el "
+"SAI que voleu controlar.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Vegeu <a href=\"http://www."
+"apcupsd.com/\"><span style=\" text-decoration: underline; color:#0057ae;"
+"\">http://www.apcupsd.com/</span></a> (en anglès) per més informació.</p></"
+"body></html>"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:54
 #. i18n: ectx: property (text), widget (QLabel, label_2)
-#: ../po/rc.cpp:12
+#: ../po/rc.cpp:24
 msgid "Port:"
 msgstr "Port:"
 
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:75
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:70
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, port)
+#: ../po/rc.cpp:27
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Enter here the port number "
+"where your apcupsd server is listening for connections. The default is 3551, "
+"but it may different, especially when there is more than one apcupsd server "
+"running on the same machine.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Check the apcupsd "
+"documentation at <a href=\"http://www.apcupsd.com/\"><span style=\" text-"
+"decoration: underline; color:#0057ae;\">http://www.apcupsd.com/</span></a> "
+"for more details.</p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Introduïu ací el número "
+"del port TCP on el vostre servidor apcupsd està escoltant. Per defecte això "
+"és el port 3551, però pot ésser un altre, especialment quan hi ha més d'un "
+"servidor apcupsd executant-se a la mateixa màquina.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Vegeu la documentació del "
+"programa apcupsd a <a href=\"http://www.apcupsd.com/\"><span style=\" text-"
+"decoration: underline; color:#0057ae;\">http://www.apcupsd.com/</span></a> "
+"(en anglès) per més detalls.</p></body></html>"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:101
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox_3)
+#: ../po/rc.cpp:36
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">This section allows you to "
+"configure the treshold for going into <span style=\" font-style:italic;"
+"\">alert</span> state based on the amount of battery charge left as reported "
+"by the target UPS.</p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">En aquesta secció podeu "
+"configurar el límit abans no es passi a l'estat d'<span style=\" font-style:"
+"italic;\">alerta</span> com a conseqüència de la quantitat de càrrega "
+"restant a la bateria, tal com l'estima el SAI (sistema d'alimentació "
+"ininterrompuda).</p></body></html>"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:104
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
-#: ../po/rc.cpp:15
+#: ../po/rc.cpp:43
 msgid "Battery Charge"
 msgstr "Nivell de bateria"
 
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:102
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:131
 #. i18n: ectx: property (text), widget (QLabel, label_3)
-#: ../po/rc.cpp:18
+#: ../po/rc.cpp:46
 msgid "Low Battery Critical Level:"
 msgstr "Bateria baixa, nivell crític:"
 
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:114
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:149
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, battChargeCritical)
+#: ../po/rc.cpp:49
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">This is the treshold at "
+"which the battery charge on the target UPS is considered to be critically "
+"low.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">It has the effect of "
+"changing the appearance of the plasmoid to the <span style=\" font-style:"
+"italic;\">critical</span> state.</p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Aquest és el límit a "
+"partir del qual l'estat de càrrega de la bateria es considera críticament "
+"baix.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Té l'efecte de canviar "
+"l'aparença del plasmoid a l'estat <span style=\" font-style:italic;"
+"\">crític</span>.</p></body></html>"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:152
 #. i18n: ectx: property (suffix), widget (QSpinBox, battChargeCritical)
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:165
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:219
 #. i18n: ectx: property (suffix), widget (QSpinBox, loadPctWarning)
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:185
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:248
 #. i18n: ectx: property (suffix), widget (QSpinBox, loadPctCritical)
-#: ../po/rc.cpp:22 ../po/rc.cpp:32 ../po/rc.cpp:39
+#: ../po/rc.cpp:59 ../po/rc.cpp:85 ../po/rc.cpp:101
 #, no-c-format
 msgid "%"
 msgstr "%"
 
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:133
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:175
+#. i18n: ectx: property (whatsThis), widget (QGroupBox, groupBox_4)
+#: ../po/rc.cpp:62
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">This section allows you to "
+"configure the treshold for going into <span style=\" font-style:italic;"
+"\">warning</span> and <span style=\" font-style:italic;\">alert</span> "
+"states based on the electrical load being borne by the target UPS.</p></"
+"body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Aquesta secció vos permet "
+"de configurar els límits per passar als estats d'<span style=\" font-style:"
+"italic;\">advertència</span> i <span style=\" font-style:italic;\">alerta</"
+"span> en funció de la tensió elèctrica que s'està demanant del SAI (sistema "
+"d'alimentació ininterrompuda).</p></body></html>"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:178
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_4)
-#: ../po/rc.cpp:25
+#: ../po/rc.cpp:69
 msgid "UPS Load"
 msgstr "Sobrecàrrega"
 
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:155
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:200
 #. i18n: ectx: property (text), widget (QLabel, label_4)
-#: ../po/rc.cpp:28
+#: ../po/rc.cpp:72
 msgid "High Load Warning Level:"
 msgstr "Sobrecàrrega, nivell d'advertència:"
 
-#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:175
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:216
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, loadPctWarning)
+#: ../po/rc.cpp:75
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">This is the treshold at "
+"which the electrical load on the UPS is considered to be of concern.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">It has the effect of "
+"changing the appearance of the plasmoid to the <span style=\" font-style:"
+"italic;\">warning</span> state.</p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Aquest és el límit a "
+"partir del qual a partir del qual la tensió al SAI es considera inusualment "
+"alta.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Té l'efecte de canviar "
+"l'aparença del plasmoid a l'estat d'<span style=\" font-style:italic;"
+"\">alerta</span>.</p></body></html>"
+
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:229
 #. i18n: ectx: property (text), widget (QLabel, label_5)
-#: ../po/rc.cpp:35
+#: ../po/rc.cpp:88
 msgid "High Load Critical Level:"
 msgstr "Sobrecàrrega, nivell crític:"
 
+#. i18n: file: ../plasma-applet-apcups/ApcUpsPlasmoidConfiguration.ui:245
+#. i18n: ectx: property (whatsThis), widget (QSpinBox, loadPctCritical)
+#: ../po/rc.cpp:91
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">This is the treshold at "
+"which the electrical load on the UPS is considered to be unacceptably high.</"
+"p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">It has the effect of "
+"changing the appearance of the plasmoid to the <span style=\" font-style:"
+"italic;\">alert</span> state.</p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sans Serif'; font-size:10pt; font-"
+"weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Aquest és el límit a "
+"partir del qual a partir del qual la tensió al SAI es considera "
+"inacceptablement alta.</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; "
+"margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"></"
+"p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Té l'efecte de canviar "
+"l'aparença del plasmoid a l'estat <span style=\" font-style:italic;"
+"\">crític</span>.</p></body></html>"
 
+#~ msgid "%1"
+#~ msgstr "%1"
