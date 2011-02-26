@@ -62,7 +62,7 @@ class ApcUpsPlasmoid : public Plasma::PopupApplet
     private:
         
         // UPS states, based on load and battery left
-        enum UpsState { NormalState, WarningState, CriticalState };
+        enum UpsState { UnknownState, NormalState, WarningState, CriticalState };
         
         // Main widget
         ApcUpsPlasmoidWidget *container;

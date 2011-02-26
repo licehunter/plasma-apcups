@@ -33,7 +33,7 @@ ApcUpsPlasmoid::ApcUpsPlasmoid(QObject *parent, const QVariantList &args)
     timeLeft = 0;
     maxTimeLeft = 0;
     status = QString("N/A");
-    state = NormalState;
+    state = UnknownState;
     upsEvents = QStringList();
 }
 
@@ -172,8 +172,8 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
         // TODO - A better option would be to add a third state,
         // UnknownState to cater for the case where we cannot
         // determine the UPS state e.g., due to comms errors, etc.
-        UpsState loadState = NormalState;
-        UpsState battState = NormalState;
+        UpsState loadState = UnknownState;
+        UpsState battState = UnknownState;
         UpsState prevState = state; // To notify of state change
         
         // Work out the UPS state as regards battery charge
