@@ -1,13 +1,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Diego Berge, 2010.
+# Diego Berge, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-26 13:54+0000\n"
-"PO-Revision-Date: 2010-09-18 19:15+0000\n"
+"PO-Revision-Date: 2011-02-26 14:56+0000\n"
 "Last-Translator: Diego Berge\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,15 +32,15 @@ msgstr "Configuration"
 
 #: ../plasma-applet-apcups/apcupsplasmoid.cpp:207
 msgid "The UPS state has changed back to <b>Normal</b>"
-msgstr ""
+msgstr "L'état du système ASI est redevenu <b>normal</b>"
 
 #: ../plasma-applet-apcups/apcupsplasmoid.cpp:211
 msgid "The UPS state has changed to <b>Warning</b>"
-msgstr ""
+msgstr "L'état du système ASI a changé au niveau d'<b>alerte</b>"
 
 #: ../plasma-applet-apcups/apcupsplasmoid.cpp:215
 msgid "The UPS state has changed to <b>Critical</b>"
-msgstr ""
+msgstr "L'état du système ASI a changé au niveau <b>critique</b>"
 
 #: ../plasma-applet-apcups/apcupsplasmoid.cpp:252
 #: ../plasma-applet-apcups/apcupsplasmoid.cpp:310
