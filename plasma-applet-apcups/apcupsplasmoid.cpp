@@ -205,17 +205,21 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
                 case NormalState:
                     setPopupIcon("apcups_normalstate");
                     notify(QString("stateNormal"), QString(i18n("The UPS state has changed back to <b>Normal</b>")));
+                    setStatus(Plasma::PassiveStatus);
                     break;
                 case WarningState:
                     setPopupIcon("apcups_warningstate");
                     notify(QString("stateWarning"), QString(i18n("The UPS state has changed to <b>Warning</b>")));
+                    setStatus(Plasma::ActiveStatus);
                     break;
                 case CriticalState:
                     setPopupIcon("apcups_criticalstate");
                     notify(QString("stateCritical"), QString(i18n("The UPS state has changed to <b>Critical</b>")));
+                    setStatus(Plasma::ActiveStatus);
                     break;
                 default:
                     setPopupIcon("apcups");
+                    setStatus(Plasma::ActiveStatus);
             }
         }
         
@@ -263,6 +267,7 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
         
         // Set the popup icon to the "no-state" version
         setPopupIcon("apcups");
+        setStatus(Plasma::ActiveStatus);
     }
     
     update();
