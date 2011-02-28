@@ -10,15 +10,20 @@ Action=Popup
 
 [Event/stateNormal]
 Name=UPS State Normal
-Comment=The UPS state has changed to Normal.
+Comment=The UPS state has changed to Normal
 Action=
 
 [Event/stateWarning]
 Name=UPS State Warning
-Comment=The UPS state has changed to Warning.
+Comment=The UPS state has changed to Warning
 Action=Popup
 
 [Event/stateCritical]
 Name=UPS State Critical
-Comment=The UPS state has changed to Critical.
+Comment=The UPS state has changed to Critical
+Action=Popup
+
+[Event/error]
+Name=Plasmoid Error
+Comment=An error has occurred
 Action=Popup

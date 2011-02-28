@@ -264,10 +264,10 @@ void ApcUpsPlasmoid::dataUpdated(const QString &name, const Plasma::DataEngine::
         // as often the errors are fairly long.
         status = "ERROR: ";
         status.append(data.value("Error").toString());
-        
         // Set the popup icon to the "no-state" version
         setPopupIcon("apcups");
         setStatus(Plasma::ActiveStatus);
+        notify(QString("error"), data.value("Error").toString());
     }
     
     update();
