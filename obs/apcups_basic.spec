@@ -1,3 +1,51 @@
+# These macros are not present on the target distribution and are provided explicitly here
+%if 0%{?fedora}
+%define make_jobs %{__make} %{?_smp_mflags} VERBOSE=1
+%define cmake_kde4(d:) \
+  QTDIR="%{_qt4_prefix}" ; export QTDIR ; \
+  PATH="%{_qt4_bindir}:$PATH" ; export PATH ; \
+  CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
+  CXXFLAGS="${CXXFLAGS:-%optflags}" ; export CXXFLAGS ; \
+  FFLAGS="${FFLAGS:-%optflags}" ; export FFLAGS ; \
+  bdir=. \
+  %{-d:dir=%{-d*} \
+  mkdir $dir \
+  cd $dir \
+  bdir=.. } \
+  %{__cmake} $bdir \\\
+    -DCMAKE_BUILD_TYPE=%{_kde4_buildtype} \\\
+    -DBUILD_SHARED_LIBS:BOOL=ON \\\
+    -DCMAKE_INSTALL_PREFIX:PATH=%{_kde4_prefix} \\\
+    -DCMAKE_VERBOSE_MAKEFILE=ON \\\
+    -DDATA_INSTALL_DIR:PATH=%{_kde4_appsdir} \\\
+    -DINCLUDE_INSTALL_DIR:PATH=%{_kde4_includedir} \\\
+    -DLIB_INSTALL_DIR:PATH=%{_kde4_libdir} \\\
+    -DLIBEXEC_INSTALL_DIR:PATH=%{_kde4_libexecdir} \\\
+    -DSYSCONF_INSTALL_DIR:PATH=%{_kde4_sysconfdir} \\\
+%if "%{?_lib}" == "lib64" \
+     %{?_cmake_lib_suffix64} \\\
+%endif \
+     %{?_cmake_skip_rpath} \\\
+     %* \
+%{nil}
+%define kde4_makeinstall make DESTDIR=%{?buildroot:%{buildroot}} install/fast
+%define kde_post_install %{nil}
+
+## KDE4 Directories
+%define _kde4_bindir          %{_bindir}
+%define _kde4_modulesdir      %{_libdir}/kde4
+%define _kde4_libdir          %{_libdir}
+%define _kde4_iconsdir        %{_datadir}/icons
+%define _kde4_applicationsdir %{_datadir}/applications/kde4
+%define _kde4_appsdir         %{_datadir}/kde4/apps
+%define _kde4_configdir       %{_datadir}/kde4/config
+%define _kde4_kcfgdir         %{_datadir}/kde4/config.kcfg
+%define _kde4_servicesdir     %{_datadir}/kde4/services
+%define _kde4_servicetypesdir %{_datadir}/kde4/servicetypes
+%define _kde4_htmldir         %{_docdir}/kde/HTML
+
+%endif
+
 Name:                   plasma-apcups
 License:                GPLv3
 Group:                  System/GUI/KDE
@@ -7,8 +55,14 @@ Release:                1
 URL:                    http://navlost.eu/devel/apcups/
 Source:                 %{name}-%{version}.tar.gz
 BuildRoot:              %{_tmppath}/%{name}-%{version}-build
-BuildRequires:          cmake >= 2.6, libqt4-devel >= 4.5, libkde4-devel >= 4.3, update-desktop-files
-Requires:               libqt4 >= 4.5.1, kdebase4-runtime >= 4.3.2
+BuildRequires:          cmake >= 2.6, libqt4-devel >= 4.5
+%if 0%{?suse_version} 
+BuildRequires:          libkde4-devel >= 4.3, update-desktop-files
+Requires:               kdebase4-runtime >= 4.3.2
+%else
+BuildRequires:          kdelibs-devel >= 4.3, gcc-c++
+Requires:               kdebase-runtime >= 4.3.2
+%endif
 
 %description
 A KDE Plasma component that monitors uninterruptible power
@@ -20,14 +74,16 @@ daemon) which is reachable over the network.
 %setup -n %{name}-%{version}  
 
 %build  
-%cmake_kde4 -d builddir    
+%cmake_kde4 %{?_cmake_skip_rpath}
 %make_jobs    
    
 %install
-cd builddir  
+ 
 %kde4_makeinstall
+%if 0%{?suse_version} 
 %suse_update_desktop_file -n $RPM_BUILD_ROOT/usr/share/kde4/services/plasma-engine-apcups.desktop
 %suse_update_desktop_file -n $RPM_BUILD_ROOT/usr/share/kde4/services/plasma-applet-apcups.desktop
+%endif
 %kde_post_install
 install -d $RPM_BUILD_ROOT%{_datadir}/locale %{_datadir}/locale
 
