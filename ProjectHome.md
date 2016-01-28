@@ -1,0 +1,1 @@
+A KDE Plasma component that monitors uninterruptible power supplies controlled by apcupsd <http://www.apcupsd.com/>. It can connect to any UPS (or more precisely: any apcupsd daemon) which is reachable over the network.

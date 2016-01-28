@@ -1,0 +1,75 @@
+# Installing From Sources #
+
+**Important:** _If you are upgrading to a new build of ApcUps, you should uninstall the old one first. Follow the [uninstallation](#Uninstalling.md) instructions at the end of this document before continuing._
+
+ApcUps consists of these two components:
+
+  * plasma-dataengine-apcups:
+> > Plasma data engine that talks to apcupsd daemons. This also provides
+> > a D-BUS service (eu.navlost.apcupsmon)
+  * plasmoid-apcups:
+> > Plasmoid that shows some basic information about an UPS.
+
+To build, make sure you have the prerequisites.
+
+  * Linux kernel >= 2.6
+  * CMake >= 2.6
+  * GCC and make
+  * Qt >= 4.5 development files and headers
+  * KDE >= 4.3 development files and headers
+
+openSUSE 11.2 or later users can run this to get the required packages:
+
+> `zypper install cmake libqt4-devel libkde4-devel`
+
+Once you have the required libraries, you can build and install with:
+> `cd <apcups_dir>`
+
+> `./install.sh`
+
+The script will escalate your privileges to root (using "sudo") to complete the
+installation. If that makes you nervous, you can do each step manually. Just
+take a look at what "install.sh" does and do the same thing at the console.
+
+**IMPORTANT:** _The last step of the installation is to restart your Plasma desktop
+session. You will very likely get an error if you try to use the widget before
+doing this. To restart Plasma, you can log out and then log back in. Or at the
+console, type:_
+> `kquitapp plasma-desktop`
+
+> `plasma-desktop`
+
+# Installing ApcUps From Packages #
+
+Binary installation packages for certain Linux distributions are available
+via the openSUSE Build Service's home:licehunter repository (http://download.opensuse.org/repositories/home:/licehunter/). These can be installed through your distro's native package manager. You can also add our repositories to be notified about future upgrades.
+
+**IMPORTANT:** _The last step of the installation is to restart your Plasma desktop
+session. You will very likely get an error if you try to use the widget before
+doing this. To restart Plasma, you can log out and then log back in. Or at the
+console, type:_
+> `kquitapp plasma-desktop`
+
+> `plasma-desktop`
+
+Note that these packages are not "official" packages maintained by the distro
+developers. If your distro provides its own packages, you should use those
+instead unless you want the absolute latest code.
+
+You can also build the distro packages yourself if you have an account at the
+openSUSE Build Service (OBS). To do this, first run the "`./obs-staging.sh`"
+script from the top-level project directory. This will prepare a tarball of
+the source code and also generate the meta-package files, all of which are
+placed in a subdirectory called "staging". Simply upload the contents of
+this directory to OBS or use the command line "`osc`" tool to build packages
+locally. Instructions for OBS are available at http://build.opensuse.org.
+
+# Uninstalling ApcUps #
+
+To remove ApcUps or before upgrading, follow these steps:
+
+  1. Remove all ApcUps widgets from desktops and panels.
+  1. Uninstall the program:
+    1. If you installed directly from sources, run these commands as root:
+> > > `cd <apcups_dir>/build; make uninstall`
+    1. If you installed from a package, remove it via your package manager.
